@@ -1,10 +1,11 @@
 const http = require('http');
 const cookie = require('cookie');
-const { format } = require('date-fns-tz');
+const { format, utcToZonedTime } = require('date-fns-tz'); 
 
 // Function to format the date with the specified time zone
 function formatDateWithTimeZone(date, timezone) {
-    return format(date, 'EEE MMM dd HH:mm:ss OOOO yyyy', { timeZone: timezone });
+    const zonedDate = utcToZonedTime(date, timezone);
+    return format(zonedDate, 'EEE MMM dd HH:mm:ss OOOO yyyy', { timeZone: timezone });
 }
 http.createServer((req, res) => {
     // Debugging: Log the incoming request URL and headers
